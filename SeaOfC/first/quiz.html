@@ -1,0 +1,238 @@
+<HEAD>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../theme.css">
+<div align="center">
+<h1>SEA OF C</h1>
+<div id="timer" class="timer">20:00</div>
+<script language="JavaScript">
+var check = 0;
+function countdown(minutes) {
+    var seconds = 60;
+    var mins = minutes
+    function tick() {
+        var counter = document.getElementById("timer");
+        var current_minutes = mins-1
+        seconds--;
+        if(check==0)
+        counter.innerHTML ="00:"+(current_minutes < 10 ? "0" : "")+current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+      else document.getElementById("timer").innerHTML=" ";
+        if(seconds==0 && current_minutes==0){
+          getScore(quiz);
+        }else if( seconds > 0 ) {
+            setTimeout(tick, 1000);
+        } else {
+            if(mins > 1){
+ 
+               // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
+               setTimeout(function () { countdown(mins - 1); }, 1000);
+ 
+            }
+        }
+    }
+      tick();
+    
+    //else document.getElementById("timer").innerHTML=" ";
+}
+countdown(1);
+<!-- Begin
+// Insert number of questions
+var numQues = 20;
+
+// Insert number of choices in each question
+var numChoi = 4;
+
+// Insert number of questions displayed in answer area
+var answers = new Array(20);
+
+// Insert answers to questions
+for (var i = 0; i < answers.length; i++) {
+  answers[i]='a';
+};
+
+  function keycheck(){
+    var key = document.getElementById("demo");
+    var pass = "Nx5bM";
+    if(key.value==pass)
+      location.href="../second/instruction.html";
+    else 
+        document.getElementById("error").innerHTML = "Incorrect key";
+  }
+function result(score){
+  //countdown(0);
+  check=1;
+  document.getElementById("timer").innerHTML=" ";
+  if(score<50)
+    document.getElementById("sorb").innerHTML = "<fieldset style='padding:10px' align='left' ><legend size='50' ><h2>RESULT</h2></legend>Sorry you could not clear this round. Your score is "+ score+"%.<br><br>Thanks for participating</fieldset>";
+  else
+  document.getElementById("sorb").innerHTML = "<fieldset style='padding:10px' align='left' ><legend size='50' ><h2>RESULT</h2></legend>Congratulations! you passed first round. Your score is "+ score+"%. <br><br> Enter key for next round: <input id='demo' type='password'><br></fieldset><br><button class='button' onclick='keycheck()'><span>Start </span></button>";
+  return true;
+}
+function getScore(form) {
+  var score = 0;
+  var currElt;
+  var currSelection;
+  for (i=0; i<numQues; i++) {
+    currElt = i*numChoi;
+    for (j=0; j<numChoi; j++) {
+      currSelection = form.elements[currElt + j];
+      if (currSelection.checked) {
+        if (currSelection.value == answers[i]) {
+          score++;
+          break;
+        }
+      }
+    }
+  }
+
+  score = Math.round(score/numQues*100);
+  //form.percentage.value = score + "%";
+  
+  result(score);
+}
+
+  document.onmousedown=rightblock;
+  function rightblock(event) {
+    if(event.button==2 || event.button == 1){
+      alert("Yoo are not allowed to use this key");
+    }
+  }
+
+</script>
+<title>SEA OF C</title>
+<BODY>
+<br><br><p id="error" text-color="red"></p>
+<div class="main" id="sorb">
+  
+<form name="quiz" >
+
+<fieldset style="padding:10px" align="left" >
+  <legend size="50" ><h2>ROUND 1:</h2></legend>
+<ol align="left">
+  <li>Which of the following is true<br>
+   <input type="radio" name="q1" value="Colorful Style Symbols">gets() can read a string with newline chacters but a normal scanf() with %s can not.<br>
+   <input type="radio" name="q1" value="a">gets() can read a string with spaces but a normal scanf() with %s can not.<br>
+   <input type="radio" name="q1" value="Computer Style Symbols"> gets() can always replace scanf() without any additional code.<br>
+   <input type="radio" name="q1" value="Computer Style Symbols">None of the above<br><br>
+  </li>
+  <li>Which of the following is true<br>
+   <input type="radio" name="q2" value="a">gets() doesn't do any array bound testing and should not be used.<br>
+   <input type="radio" name="q2" value="Cascading Style Sheets">fgets() should be used in place of gets() only for files, otherwise gets() is fine<br>
+   <input type="radio" name="q2" value="Computer Style Symbols">gets() cannot read strings with spaces<br>
+   <input type="radio" name="q2" value="Computer Style Symbols">None of the above<br><br>
+  </li>
+  <li>What does the following C statement mean?<br><p id="code">scanf("%4s", str);</p><br>
+   <input type="radio" name="q3" value="Colorful Style Symbols">Read exactly 4 characters from console.<br>
+   <input type="radio" name="q3" value="a">Read maximum 4 characters from console.  <br>
+   <input type="radio" name="q3" value="Computer Style Symbols">Read a string str in multiples of 4<br>
+   <input type="radio" name="q3" value="Computer Style Symbols">Nothing<br><br>
+  </li>
+  <li>What is the return type of getchar()?<br>
+   <input type="radio" name="q4" value="a">int<br>
+   <input type="radio" name="q4" value="Cascading Style Sheets">char<br>
+   <input type="radio" name="q4" value="Computer Style Symbols">insigned char<br>
+   <input type="radio" name="q4" value="Computer Style Symbols">float<br><br>
+  </li>
+  <li>Normally user programs are prevented from handling I/O directly by I/O instructions in them. For CPUs having explicit I/O instructions, such I/O protection is ensured by having the I/O instructions privileged. In a CPU with memory mapped I/O, there is no explicit I/O instruction. Which one of the following is true for a CPU with memory mapped I/O?<br>
+   <input type="radio" name="q5" value="a">I/O protection is ensured by operating system routine (s)<br>
+   <input type="radio" name="q5" value="Cascading Style Sheets">I/O protection is ensured by operating system routine (s)<br>
+   <input type="radio" name="q5" value="Computer Style Symbols">I/O protection is ensured during system configuration<br>
+   <input type="radio" name="q5" value="Computer Style Symbols">I/O protection is not possible<br><br>
+  </li>
+  <li>Which of the following functions from “stdio.h” can be used in place ofprintf()?<br>
+   <input type="radio" name="q6" value="Colorful Style Symbols">fputs() with FILE stream as stdout.<br>
+   <input type="radio" name="q6" value="a">fprintf() with FILE stream as stdout.  <br>
+   <input type="radio" name="q6" value="Computer Style Symbols">fwrite() with FILE stream as stdout.<br>
+   <input type="radio" name="q6" value="Computer Style Symbols">All of the above three - a, b and c<br><br>
+  </li>
+  <li>In the C language<br>
+   <input type="radio" name="q7" value="Colorful Style Symbols">At most one activation record exists between the current activation record and the activation record for the main<br>
+   <input type="radio" name="q7" value="a">The number of activation records between the current activation record and the activation record for the main depends on the actual function calling sequence.<br>
+   <input type="radio" name="q7" value="Computer Style Symbols">The visibility of global variables depends on the actual function calling sequence.<br>
+   <input type="radio" name="q7" value="Computer Style Symbols">Recursion requires the activation record for the recursive function to be saved on a different stack before the recursive function can be called.<br><br>
+  </li>
+  <li>The C language is<br>
+   <input type="radio" name="q8" value="a">A context free language<br>
+   <input type="radio" name="q8" value="Cascading Style Sheets">A context sensitive language<br>
+   <input type="radio" name="q8" value="Computer Style Symbols">A regular language<br>
+   <input type="radio" name="q8" value="Computer Style Symbols">Parsable fully only by a Turing machine<br><br>
+  </li>
+  <li>Which of the following best describes C language<br>
+   <input type="radio" name="q9" value="Colorful Style Symbols">C is a low level language<br>
+   <input type="radio" name="q9" value="a">C is a high level language with features that support low level programming<br>
+   <input type="radio" name="q9" value="Computer Style Symbols">C is a high level language<br>
+   <input type="radio" name="q9" value="Computer Style Symbols">C is a very high level language<br><br>
+  </li>
+  <li>As per C language standard, which of the followings is/are not keyword(s)? Pick the best statement. auto make main sizeof elseif<br>
+   <input type="radio" name="q10" value="Colorful Style Symbols">None of the above is keywords in C <br>
+   <input type="radio" name="q10" value="a">make main elseif  <br>
+   <input type="radio" name="q10" value="Computer Style Symbols">make main <br>
+   <input type="radio" name="q10" value="Computer Style Symbols">make <br><br>
+  </li>
+  <li>Which of the following true about FILE *fp<br>
+   <input type="radio" name="q11" value="Colorful Style Symbols">FILE is a keyword in C for representing files and fp is a variable of FILE type.<br>
+   <input type="radio" name="q11" value="a">FILE is a structure and fp is a pointer to the structure of FILE type <br>
+   <input type="radio" name="q11" value="Computer Style Symbols">FILE is a structure and fp is a pointer to the structure of FILE type<br>
+   <input type="radio" name="q11" value="Computer Style Symbols">FILE is a buffered stream<br><br>
+  </li>
+  <li>When fopen() is not able to open a file, it returns<br>
+   <input type="radio" name="q12" value="Colorful Style Symbols">EOF<br>
+   <input type="radio" name="q12" value="a">NULL<br>
+   <input type="radio" name="q12" value="Computer Style Symbols">Runtime Error<br>
+   <input type="radio" name="q12" value="Computer Style Symbols">Compiler Dependent<br><br>
+  </li>
+  <li>getc() returns EOF when<br>
+   <input type="radio" name="q13" value="Colorful Style Symbols">End of files is reached<br>
+   <input type="radio" name="q13" value="Cascading Style Sheets">When getc() fails to read a character<br>
+   <input type="radio" name="q13" value="a">Both of the above <br>
+   <input type="radio" name="q13" value="Computer Style Symbols">None of the above<br><br>
+  </li>
+  <li>Which of the following is true about arrays in C.<br>
+   <input type="radio" name="q14" value="Colorful Style Symbols">For every type T, there can be an array of T.<br>
+   <input type="radio" name="q14" value="a">For every type T except void and function type, there can be an array of T <br>
+   <input type="radio" name="q14" value="Computer Style Symbols">When an array is passed to a function, C compiler creates a copy of array.<br>
+   <input type="radio" name="q14" value="Computer Style Symbols">2D arrays are stored in column major form<br><br>
+  </li>
+  <li>What’s the meaning of following declaration in C language?
+int (*p)[5];<br>
+   <input type="radio" name="q15" value="Colorful Style Symbols">It will result in compile error because there shouldn't be any parenthesis i.e. “int *p[5]” is valid.<br>
+   <input type="radio" name="q15" value="Cascading Style Sheets">p is a pointer to 5 integers.<br>
+   <input type="radio" name="q15" value="Computer Style Symbols">p is an array of 5 pointers to integers<br>
+   <input type="radio" name="q15" value="a">p is a pointer to an array of 5 integers.<br><br>
+  </li>
+  <li>Consider the following two C lines<p id="code">int var1;<br>
+extern int var2;</p><br>
+   <input type="radio" name="q16" value="Colorful Style Symbols">Both statements only declare variables, don't define them<br>
+   <input type="radio" name="q16" value="a">First statement declares and defines var1, but second statement only declares var2<br>
+   <input type="radio" name="q16" value="Computer Style Symbols">Both statements declare define variables var1 and var2<br>
+   <input type="radio" name="q16" value="Computer Style Symbols">None of the above.<br><br>
+  </li>
+  <li>Which of the following operators can be applied on structure variables?<br>
+   <input type="radio" name="q17" value="Colorful Style Symbols">Equality comparison ( == )<br>
+   <input type="radio" name="q17" value="a">Assignment ( = )<br>
+   <input type="radio" name="q17" value="Computer Style Symbols">Both of the above <br>
+   <input type="radio" name="q17" value="Computer Style Symbols">None of the above<br><br>
+  </li>
+  <li>In C, parameters are always<br>
+   <input type="radio" name="q18" value="a">Passed by value<br>
+   <input type="radio" name="q18" value="Cascading Style Sheets">Passed by reference<br>
+   <input type="radio" name="q18" value="Computer Style Symbols">Non-pointer variables are passed by value and pointers are passed by reference <br>
+   <input type="radio" name="q18" value="Computer Style Symbols">Passed by value result<br><br>
+  </li>
+ <li>The reason for using pointers in a C program is<br>
+   <input type="radio" name="q19" value="Colorful Style Symbols">Pointers allow different functions to share and modify their local variables <br>
+   <input type="radio" name="q19" value="ghdoihfdjhoifj">To pass large structures so that complete copy of the structure can be avoided.<br>
+   <input type="radio" name="q19" value="Computer Style Symbols">Pointers enable complex “linked" data structures like linked lists and binary trees.<br>
+   <input type="radio" name="q19" value="a">All of the above <br><br>
+  <li>Which of the following is true about return type of functions in C?<br>
+   <input type="radio" name="q20" value="Colorful Style Symbols">Functions can return any type<br>
+   <input type="radio" name="q20" value="a">Functions can return any type except array and functions <br>
+   <input type="radio" name="q20" value="Computer Style Symbols">Functions can return any type except array, functions and union<br>
+   <input type="radio" name="q20" value="Computer Style Symbols">Functions can return any type except array, functions, function pointer and union.<br><br>
+  </li>
+</ol>
+</legend>
+</fieldset>
+</form>
+<button class="button" onclick="getScore(quiz)"><span>Submit </span></button>
+</div>
+</HEAD>

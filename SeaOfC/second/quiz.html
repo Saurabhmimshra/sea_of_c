@@ -1,0 +1,374 @@
+<HEAD>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../theme.css">
+<div align="center">
+<h1>SEA OF C</h1>
+<div id="timer" class="timer">20:00</div>
+<script language="JavaScript">
+var check = 0;
+function countdown(minutes) {
+    var seconds = 60;
+    var mins = minutes
+    function tick() {
+        var counter = document.getElementById("timer");
+        var current_minutes = mins-1
+        seconds--;
+        if(check==0)
+        counter.innerHTML ="00:"+(current_minutes < 10 ? "0" : "")+current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+      else document.getElementById("timer").innerHTML=" ";
+        if(seconds==0 && current_minutes==0){
+          getScore(quiz);
+        }else if( seconds > 0 ) {
+            setTimeout(tick, 1000);
+        } else {
+            if(mins > 1){
+ 
+               // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
+               setTimeout(function () { countdown(mins - 1); }, 1000);
+ 
+            }
+        }
+    }
+    tick();
+}
+countdown(30);
+
+var numQues = 15;
+var numChoi = 4;
+var answers = new Array(15);
+for (var i = 0; i < answers.length; i++) {
+  answers[i]='a';
+};
+function getScore(form) {
+  var score = 0;
+  var currElt;
+  var currSelection;
+  for (i=0; i<numQues; i++) {
+    currElt = i*numChoi;
+    for (j=0; j<numChoi; j++) {
+      currSelection = form.elements[currElt + j];
+      if (currSelection.checked) {
+        if (currSelection.value == answers[i]) {
+          score++;
+          break;
+        }
+      }
+    }
+  }
+
+  score = Math.round(score/numQues*100);
+  //form.percentage.value = score + "%";
+  
+  result(score);
+}
+function keycheck(){
+    var key = document.getElementById("demo");
+    var pass = "R1t00";
+    if(key.value==pass)
+      location.href="../third/instruction.html";
+    else 
+    document.getElementById("error").innerHTML = "Incorrect key";
+}
+function result(score){
+  //countdown(0);
+  check=1;
+  document.getElementById("timer").innerHTML=" ";
+  if(score<60)
+    document.getElementById("sorb").innerHTML = "<fieldset style='padding:10px' align='left' ><legend size='50' >RESULT</legend>Sorry you could not clear this round. Your score is "+ score+".<br><br> Thanks for participating</fieldset>";
+  else
+    document.getElementById("sorb").innerHTML = "<fieldset style='padding:10px' align='left' ><legend size='50' >RESULT</legend>Congratulations! you passed first round. Your score is "+ score+". <br><br> Enter key for next round: <input id='demo' type='password'><br></fieldset><br><button class='button' onclick='keycheck()'><span>Start </span></button>";
+  return true;
+}
+
+document.onmousedown=rightblock;
+  function rightblock(event) {
+    if(event.button==2 || event.button == 1){
+      alert("Yoo are not allowed to use this key");
+    }
+  }
+</script>
+<title>SEA OF C</title>
+<BODY>
+<br><br><p id="error" text-color="red"></p>
+<div class="main" id="sorb">
+  
+<form name="quiz" >
+<fieldset style="padding:10px" align="left" >
+  <legend size="50" ><h2>ROUND 2:</h2></legend>
+<ol align="left">
+<li>Output?<p id="code">#include <stdio.h><br>
+int main()<br>
+{<br>
+    int a[5] = {1,2,3,4,5};<br>
+    int *ptr = (int*)(&a+1);<br>
+    printf("%d %d", *(a+1), *(ptr-1));<br>
+    return 0;<br>
+}</p><br>
+   <input type="radio" name="q1" value="a">2 5<br>
+   <input type="radio" name="q1" value="fsghdhfdh">Garbage Value<br>
+   <input type="radio" name="q1" value="Computer Style Symbols">Compiler Error<br>
+   <input type="radio" name="q1" value="Computer Style Symbols">Segmentation Fault<br><br>
+</li>
+<li>Output?<p id="code">#include <stdio.h><br>
+int main()<br>
+{<br>
+  int x = 1, y = 2, z = 3;<br>
+  printf(" x = %d, y = %d, z = %d \n", x, y, z);<br>
+  {<br>
+       int x = 10;<br>
+       float y = 20;<br>
+       printf(" x = %d, y = %f, z = %d \n", x, y, z);<br>
+       {<br>
+             int z = 100;<br>
+             printf(" x = %d, y = %f, z = %d \n", x, y, z);<br>
+       }<br>
+  }<br>
+  return 0;<br>
+}</p><br>
+   <input type="radio" name="q2" value="Colorful Style Symbols">x = 1, y = 2, z = 3<br>
+   x = 10, y = 20.000000, z = 3<br>
+   x = 1, y = 2, z = 100<br>
+   <input type="radio" name="q2" value="Cascading Style Sheets">Compile Error<br>
+   <input type="radio" name="q2" value="a">x = 1, y = 2, z = 3 <br>
+ x = 10, y = 20.000000, z = 3<br>
+ x = 10, y = 20.000000, z = 100<br>
+   <input type="radio" name="q2" value="Computer Style Symbols">x = 1, y = 2, z = 3<br>
+ x = 1, y = 2, z = 3<br>
+ x = 1, y = 2, z = 3<br><br>
+</li>
+<li>Predict the output<p id="code">#include <stdio.h><br>
+int var = 20;<br>
+int main()<br>
+{<br>
+    int var = var;<br>
+    printf("%d ", var);<br>
+    return 0;<br>
+}
+</p><br>
+   <input type="radio" name="q3" value="a">Garbage Value<br>
+   <input type="radio" name="q3" value="Cascading Style Sheets">20 <br>
+   <input type="radio" name="q3" value="Computer Style Symbols">Compiler Error<br>
+   <input type="radio" name="q3" value="Computer Style Symbols">var<br><br>
+</li>
+<li>Output of following program?<p id="code">#include <stdio.h><br>
+int main()<br>
+{<br>
+    static int i=5;<br>
+    if(--i){<br>
+        main();<br>
+        printf("%d ",i);<br>
+    }<br>
+}</p><br>
+   <input type="radio" name="q4" value="Colorful Style Symbols">4 3 2 1<br>
+   <input type="radio" name="q4" value="Cascading Style Sheets">1 2 3 4<br>
+   <input type="radio" name="q4" value="a">0 0 0 0<br>
+   <input type="radio" name="q4" value="Computer Style Symbols">Compile Error<br><br>
+</li>
+<li>Output?<p id="code">#include <stdio.h><br>
+int main()<br>
+{<br>
+    int x = 5;<br>
+    int const * ptr = &x;<br>
+    ++(*ptr);<br>
+    printf("%d", x);<br>
+    return 0;<br>
+}</p><br><br>
+   <input type="radio" name="q5" value="a">Compiler Error<br>
+   <input type="radio" name="q5" value="Cascading Style Sheets">Runtime Error<br>
+   <input type="radio" name="q5" value="Computer Style Symbols">6 <br>
+   <input type="radio" name="q5" value="Computer Style Symbols">5<br><br>
+</li>
+<li>Output?<p id="code">#include<stdio.h><br>
+int main()<br>
+{<br>
+  typedef static int *i;<br>
+  int j;<br>
+  i a = &j;<br>
+  printf("%d", *a);<br>
+  return 0;<br>
+}</p><br>
+   <input type="radio" name="q6" value="Colorful Style Symbols">Rintime Error<br>
+   <input type="radio" name="q6" value="Cascading Style Sheets">0 <br>
+   <input type="radio" name="q6" value="Computer Style Symbols">Garbage Value <br>
+   <input type="radio" name="q6" value="a">Compiler Error<br><br>
+</li>
+<li>Output of following program?<p id="code">#include<stdio.h><br>
+ 
+void dynamic(int s, ...)<br>
+{<br>
+    printf("%d ", s);<br>
+}<br>
+ 
+int main()<br>
+{<br>
+    dynamic(2, 4, 6, 8);<br>
+    dynamic(3, 6, 9);<br>
+    return 0;<br>
+}</p><br>
+   <input type="radio" name="q7" value="a">2 3<br>
+   <input type="radio" name="q7" value="Cascading Style Sheets">Compiler Error<br>
+   <input type="radio" name="q7" value="Computer Style Symbols">4 3<br>
+   <input type="radio" name="q7" value="Computer Style Symbols">3 2<br><br>
+</li>
+<li>Output?<p id="code">#include <stdio.h><br>
+#include <stdarg.h><br>
+int fun(int n, ...)<br>
+{<br>
+    int i, j = 1, val = 0;<br>
+    va_list p;<br>
+    va_start(p, n);<br>
+    for (; j < n; ++j)<br>
+    {<br>
+        i = va_arg(p, int);<br>
+        val += i;<br>
+    }<br>
+    va_end(p);<br>
+    return val;<br>
+}<br>
+int main()<br>
+{<br>
+    printf("%d\n", fun(4, 1, 2, 3));<br>
+    return 0;<br>
+}</p><br>
+   <input type="radio" name="q8" value="Colorful Style Symbols">3<br>
+   <input type="radio" name="q8" value="Cascading Style Sheets">5<br>
+   <input type="radio" name="q8" value="a">6<br>
+   <input type="radio" name="q8" value="Computer Style Symbols">10<br><br>
+</li>
+<li>Consider the following C-program:<p id="code">void foo(int n, int sum)<br>
+{<br>
+  int k = 0, j = 0;<br>
+  if (n == 0) return;<br>
+    k = n % 10; <br>
+  j = n / 10;<br>
+  sum = sum + k;<br>
+  foo (j, sum);<br>
+  printf ("%d,", k);<br>
+}<br>
+  
+int main ()<br>
+{<br>
+  int a = 2048, sum = 0;<br>
+  foo (a, sum);<br>
+  printf ("%d\n", sum);<br>
+    
+  getchar();<br>
+}</p>What does the above program print?<br>
+   <input type="radio" name="q9" value="Colorful Style Symbols">8, 4, 0, 2, 14<br>
+   <input type="radio" name="q9" value="Cascading Style Sheets">8, 4, 0, 2, 0<br>
+   <input type="radio" name="q9" value="Computer Style Symbols">2, 0, 4, 8, 14<br>
+   <input type="radio" name="q9" value="a">2, 0, 4, 8, 0<br><br>
+</li>
+<li>Consider the following C function<p id="code">void swap (int a, int b)<br>
+{<br>
+   int temp;<br>
+   temp = a;<br>
+   a = b;<br>
+   b = temp;<br>
+}</p><br>
+   <input type="radio" name="q10" value="Colorful Style Symbols">Call swap (x,y)<br>
+   <input type="radio" name="q10" value="Cascading Style Sheets">Call swap (&x,&y)<br>
+   <input type="radio" name="q10" value="Computer Style Symbols">swap(x,y) cannot be used as it does not return any value<br>
+   <input type="radio" name="q10" value="a">swap(x,y) cannot be used as the parameters are passed by value<br><br>
+</li>
+<li> The value of j at the end of the execution of the following C program.<p id="code">int incr(int i)<br>
+{<br>
+   static int count = 0;<br>
+   count = count + i;<br>
+   return (count);<br>
+}<br>
+main()<br>
+{<br>
+   int i,j;<br>
+   for (i = 0; i <=4; i++)<br>
+      j = incr(i);<br>
+}</p><br>
+   <input type="radio" name="q11" value="a">10<br>
+   <input type="radio" name="q11" value="Cascading Style Sheets">4 <br>
+   <input type="radio" name="q11" value="Computer Style Symbols">6 <br>
+   <input type="radio" name="q11" value="Computer Style Symbols">7<br><br>
+</li>
+<li>Output? <p id="code">#include <stdio.h><br>
+#if X == 3<br>
+    #define Y 3<br>
+#else<br>
+    #define Y 5<br>
+#endif<br>
+ 
+int main()<br>
+{<br>
+    printf("%d", Y);<br>
+    return 0;<br>
+}</p><br>
+   <input type="radio" name="q12" value="Colorful Style Symbols">3<br>
+   <input type="radio" name="q12" value="a">5<br>
+   <input type="radio" name="q12" value="Computer Style Symbols">3 or 5 depending on value of X<br>
+   <input type="radio" name="q12" value="Computer Style Symbols">Compile time error<br><br>
+</li>
+<li>Output?<p id="code">#include <stdio.h><br>
+#define square(x) x*x<br>
+int main()<br>
+{<br>
+  int x;<br>
+  x = 36/square(6);<br>
+  printf("%d", x);<br>
+  return 0;<br>
+}</p><br>
+   <input type="radio" name="q13" value="Colorful Style Symbols">1<br>
+   <input type="radio" name="q13" value="a">36<br>
+   <input type="radio" name="q13" value="Computer Style Symbols">0<br>
+   <input type="radio" name="q13" value="Computer Style Symbols">Compile time error
+<br><br>
+</li>
+<li>What is output?<p id="code"># include <stdio.h><br>
+ 
+void print(int arr[])<br>
+{<br>
+   int n = sizeof(arr)/sizeof(arr[0]);<br>
+   int i;<br>
+   for (i = 0; i < n; i++)<br>
+      printf("%d ", arr[i]);<br>
+}<br>
+ 
+int main()<br>
+{<br>
+   int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};<br>
+   print(arr);<br>
+   return 0;<br>
+}</p><br>
+   <input type="radio" name="q14" value="Colorful Style Symbols">1, 2, 3, 4, 5, 6, 7, 8<br>
+   <input type="radio" name="q14" value="Cascading Style Sheets">Compiler Error<br>
+   <input type="radio" name="q14" value="a">1 <br>
+   <input type="radio" name="q14" value="Computer Style Symbols">Run Time Error<br><br>
+</li>
+<li>The output of the following C program is __________.<p id="code">void f1 (int a, int b)<br>
+{
+  int c;<br>
+  c=a; a=b; b=c;<br>
+}<br>
+void f2 (int *a, int *b)<br>
+{<br>
+  int c;<br>
+  c=*a; *a=*b;*b=c;<br>
+}<br>
+int main()<br>
+{<br>
+  int a=4, b=5, c=6;<br>
+  f1(a, b);<br>
+  f2(&b, &c);<br>
+  printf (“%d”, c-a-b);<br>
+  return 0;<br>
+}
+</p><br>
+   <input type="radio" name="q15" value="a">-5<br>
+   <input type="radio" name="q15" value="Cascading Style Sheets">-4<br>
+   <input type="radio" name="q15" value="Computer Style Symbols">5<br>
+   <input type="radio" name="q15" value="Computer Style Symbols">3<br><br>
+</li>
+</ol>
+</legend>
+</fieldset>
+</form>
+<button class="button" onclick="getScore(quiz)"><span>Submit </span></button>
+</div>
+</HEAD>

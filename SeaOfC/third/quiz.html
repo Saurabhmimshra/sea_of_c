@@ -1,0 +1,97 @@
+<HEAD>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../theme.css">
+<div align="center">
+<h1>SEA OF C</h1>
+<div id="timer" class="timer">20:00</div>
+<script language="JavaScript">
+var check = 0;
+function countdown(minutes) {
+    var seconds = 60;
+    var mins = minutes
+    function tick() {
+        var counter = document.getElementById("timer");
+        var current_minutes = mins-1
+        seconds--;
+        if(check==0)
+        counter.innerHTML ="00:"+(current_minutes < 10 ? "0" : "")+current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+      else document.getElementById("timer").innerHTML=" ";
+        if(seconds==0 && current_minutes==0){
+          getScore(quiz);
+        }else if( seconds > 0 ) {
+            setTimeout(tick, 1000);
+        } else {
+            if(mins > 1){
+ 
+               // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
+               setTimeout(function () { countdown(mins - 1); }, 1000);
+ 
+            }
+        }
+    }
+      tick();
+    
+    //else document.getElementById("timer").innerHTML=" ";
+}
+countdown(40)
+<!-- Begin
+// Insert number of questions
+var numQues = 4;
+
+// Insert number of choices in each question
+var numChoi = 3;
+
+// Insert number of questions displayed in answer area
+var answers = new Array(4);
+
+// Insert answers to questions
+answers[0] = "Cascading Style Sheets";
+answers[1] = "Dynamic HTML";
+answers[2] = "Netscape";
+answers[3] = "Common Gateway Interface";
+function result(score){
+  //countdown(0);
+  check=1;
+  document.getElementById("timer").innerHTML=" ";
+  if(score<25)
+    document.getElementById("sorb").innerHTML = "<fieldset style='padding:10px' align='left' ><legend size='50' >RESULT</legend>Round 3 ended...!!!  Please call the invigilator.<br><br>Thanks for participating :)</fieldset>";
+else
+document.getElementById("sorb").innerHTML = "<fieldset style='padding:10px' align='left' ><legend size='50' >RESULT</legend>Congratulations! you passed first round. Your score is"+ score+". <br><br>Enter key for next round: <input type='text'><br></fieldset><br><button class='button' onclick=\"location.href='../second/instruction.html'\"><span>Start </span></button>";
+return true;
+}
+function getScore(form) {
+  var score = 0;
+  result(score);
+}
+
+document.onmousedown=rightblock;
+  function rightblock(event) {
+    if(event.button==2 || event.button == 1){
+      alert("Yoo are not allowed to use this key");
+    }
+  }
+</script>
+<title>SEA OF C</title>
+<BODY>
+<div class="main" id="sorb">
+  
+<form name="quiz" >
+<fieldset style="padding:10px" align="left" >
+  <legend size="50" >ROUND 3:</legend>
+<ol align="left">
+<li>Write a function detectAndRemoveLoop() that checks whether a given Linked List contains loop and if loop is
+present then removes the loop and returns true. And if the list doesn’t contain loop then returns false. Below
+diagram shows a linked list with a loop. detectAndRemoveLoop() must change the below list to 1>2>3>4>5>NULL.<br><br>
+<img src="../Linked-List-Loop.gif"><br><br>
+</li>
+<li>Write a program to convert Binary to Decimal.Your program must except a binary number as input and must give a decimal number as output.<br>
+<img src="../example.JPG">
+   <br><br>
+</li>
+</ol>
+</legend>
+</fieldset>
+</form>
+<button class="button" onclick="getScore(quiz)"><span>Submit </span></button>
+</div>
+</HEAD>
